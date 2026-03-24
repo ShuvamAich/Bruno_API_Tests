@@ -1,0 +1,34 @@
+info:
+  name: Status
+  type: http
+  seq: 1
+
+http:
+  method: GET
+  url: "{{BaseUrl}}/status"
+  auth: inherit
+
+runtime:
+  scripts:
+    - type: tests
+      code: |-
+        test("should return success", function () {
+          expect(res.getStatus()).to.equal(200);
+        });
+
+        test("should not return server error", function () {
+          expect(res.getStatus()).to.not.equal(500);
+        });
+
+        test("should return user data", function () {
+          const body = res.getBody();
+          
+          expect(body).to.have.property("status");
+          expect(body.status).to.equal("O");
+        });
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

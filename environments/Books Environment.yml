@@ -1,0 +1,6 @@
+name: Books Environment
+variables:
+  - secret: true
+    name: Authorization
+  - name: BaseUrl
+    value: https://simple-books-api.click

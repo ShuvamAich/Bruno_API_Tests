@@ -1,0 +1,30 @@
+info:
+  name: SubmitOrder
+  type: http
+  seq: 6
+
+http:
+  method: POST
+  url: "{{BaseUrl}}/orders"
+  body:
+    type: json
+    data: |-
+      {
+        "bookId": 1,
+        "customerName": "John"
+      }
+  auth:
+    type: bearer
+    token: "{{Authorization}}"
+
+runtime:
+  assertions:
+    - expression: res.status
+      operator: eq
+      value: "201"
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

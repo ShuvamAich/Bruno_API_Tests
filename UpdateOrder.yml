@@ -1,0 +1,19 @@
+info:
+  name: UpdateOrder
+  type: http
+  seq: 12
+
+http:
+  method: PATCH
+  url: "{{BaseUrl}}/orders/:orderId"
+  params:
+    - name: orderId
+      value: ""
+      type: path
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
