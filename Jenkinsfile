@@ -21,8 +21,17 @@ pipeline {
             steps {
                 script {
                     if (isUnix()) {
-                        sh 'npm install -g @usebruno/cli'
+                        tool 'Node.js 18' // Use the exact name configured in Jenkins Global Tool Configuration
+                        echo 'Verifying Node.js and npm versions...'
+                        sh 'node -v' // Verify Node.js is on PATH
+                        sh 'npm -v'  // Verify npm is on PATH
+                        echo 'Installing Bruno CLI globally...'
+                        sh 'npm install -g @usebruno/cli' // Install Bruno CLI
+                        echo 'Verifying Bruno CLI installation...'
+                        sh 'bru --version' // Verify Bruno CLI installation
                     } else {
+                        tool 'Node.js 18'
+                        echo 'Installing Bruno CLI globally...'
                         bat 'npm install -g @usebruno/cli'
                     }
                 }
@@ -33,11 +42,22 @@ pipeline {
             steps {
                 script {
                     if (isUnix()) {
-                        sh 'bru run --env "Books Environment"'
+                        tool 'Node.js 18'
+                        echo 'Running Bruno API tests...'
+                        sh 'npx bru run --env "Books Environment" ci --reporter-html results.html'
                     } else {
-                        bat 'bru run --env "Books Environment"'
+                        tool 'Node.js 18'
+                        echo 'Running Bruno API tests...'
+                        bat 'npx bru run --env "Books Environment"'
                     }
                 }
+            }
+        }
+        stage('Archive Test Results') {
+            steps {
+                echo 'Archiving test report...'
+                // Save the generated HTML report as a build artifact
+                archiveArtifacts artifacts: 'results.html', fingerprint: true
             }
         }
     }
