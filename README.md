@@ -21,7 +21,7 @@ The Simple Books API is a REST API that allows clients to:
 
 | Request | Method | Endpoint | Description |
 |---|---|---|---|
-| Status | GET | `/status` | Verifies the API is up and returns `"O"` |
+| Status | GET | `/status` | Verifies the API is up and returns `"OK"` |
 | Books | GET | `/books` | Retrieves the list of all available books |
 | BookId | GET | `/books/:bookId` | Retrieves a single book by its ID |
 | SubmitOrder | POST | `/orders` | Places a new order for a book |
