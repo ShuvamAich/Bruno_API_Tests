@@ -41,14 +41,25 @@ pipeline {
         stage('Run Bruno API Tests') {
             steps {
                 script {
-                    if (isUnix()) {
-                        tool 'Node.js 18'
-                        echo 'Running Bruno API tests...'
-                        sh 'npx bru run --env "Books Environment" ci --reporter-html results.html'
-                    } else {
-                        tool 'Node.js 18'
-                        echo 'Running Bruno API tests...'
-                        bat 'npx bru run --env "Books Environment"'
+                    withCredentials([string(credentialsId: 'simple-books-authorization', variable: 'AUTHORIZATION_TOKEN')]) {
+
+                        // Overwrite the Bruno environment file with the secret injected
+                        writeFile file: 'environments/Books Environment.yml', text: """name: Books Environment
+variables:
+  - secret: true
+    name: Authorization
+    value: ${AUTHORIZATION_TOKEN}
+  - name: BaseUrl
+    value: https://simple-books-api.click
+"""
+
+                        if (isUnix()) {
+                            echo 'Running Bruno API tests...'
+                            sh 'npx bru run --env "Books Environment"'
+                        } else {
+                            echo 'Running Bruno API tests...'
+                            bat 'npx bru run --env "Books Environment"'
+                        }
                     }
                 }
             }
