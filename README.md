@@ -2,6 +2,8 @@
 
 A collection of API tests for the [Simple Books API](https://simple-books-api.click), built with [Bruno](https://www.usebruno.com/) — an open-source, offline-first API client.
 
+API Documentation by Bruno is available at:  https://shuvamaich.github.io/Bruno_API_Tests/
+
 ## About the Project
 
 This project contains automated API tests written in Bruno's YAML-based collection format. The tests cover the full lifecycle of the Simple Books API, including checking service health, browsing the book catalogue, managing orders, and registering API clients.
@@ -19,7 +21,7 @@ The Simple Books API is a REST API that allows clients to:
 
 | Request | Method | Endpoint | Description |
 |---|---|---|---|
-| Status | GET | `/status` | Verifies the API is up and returns `"O"` |
+| Status | GET | `/status` | Verifies the API is up and returns `"OK"` |
 | Books | GET | `/books` | Retrieves the list of all available books |
 | BookId | GET | `/books/:bookId` | Retrieves a single book by its ID |
 | SubmitOrder | POST | `/orders` | Places a new order for a book |
