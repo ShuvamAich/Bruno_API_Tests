@@ -62,3 +62,23 @@ npm install -g @usebruno/cli
 # Run the full collection
 bru run --env "Books Environment"
 ```
+
+The tests are fully end to end automated and also configured to run on Jenkins where you can also find the test results and HTML Reports:
+
+<img width="3423" height="731" alt="image" src="https://github.com/user-attachments/assets/60183f0c-da96-4fa3-bd5a-42a487936f0e" />
+
+<img width="909" height="657" alt="image" src="https://github.com/user-attachments/assets/fa043d77-8977-46bb-822d-3301361eb7fa" />
+
+<img width="3423" height="915" alt="image" src="https://github.com/user-attachments/assets/559cc4ff-4980-4867-9fdd-f453195a1965" />
+
+<img width="3432" height="3833" alt="screencapture-localhost-8080-job-Bruno-Api-Tests-17-artifact-results-html-2026-03-27-00_21_33" src="https://github.com/user-attachments/assets/4a38fc86-acfa-4ecf-8453-54931990a4d7" />
+
+
+
+
+
+
+
+
+
+
