@@ -62,18 +62,18 @@ pipeline {
             }
         }
 
-        stage('Publish Bruno HTML Report') {
-            steps {
-                publishHTML(target: [
-                    reportName           : 'Bruno HTML Report',
-                    reportDir            : '.',           // directory containing results.html
-                    reportFiles          : 'results.html',
-                    keepAll              : true,
-                    alwaysLinkToLastBuild: true,
-                    allowMissing         : true
-                ])
-            }
-        }
+        // stage('Publish Bruno HTML Report') {
+        //     steps {
+        //         publishHTML(target: [
+        //             reportName           : 'Bruno HTML Report',
+        //             reportDir            : '.',           // directory containing results.html
+        //             reportFiles          : 'results.html',
+        //             keepAll              : true,
+        //             alwaysLinkToLastBuild: true,
+        //             allowMissing         : true
+        //         ])
+        //     }
+        // }
     }
 
     post {
