@@ -41,16 +41,16 @@ pipeline {
         stage('Run Bruno API Tests') {
             steps {
                 script {
-                    withCredentials([string(credentialsId: 'simple-books-authorization', variable: 'AUTHORIZATION_TOKEN')]) {
+                                        withCredentials([string(credentialsId: 'simple-books-authorization', variable: 'AUTHORIZATION_TOKEN')]) {
 
-                        // Overwrite the Bruno environment file with the secret injected
+                                                // Overwrite the Bruno environment file with the secret injected
                                                 writeFile file: 'environments/Books Environment.yml', text: """name: Books Environment
 variables:
-  - secret: true
-    name: Authorization
+    - secret: true
+        name: Authorization
         value: Bearer ${AUTHORIZATION_TOKEN}
-  - name: BaseUrl
-    value: https://simple-books-api.click
+    - name: BaseUrl
+        value: https://simple-books-api.click
 """
 
                         if (isUnix()) {
