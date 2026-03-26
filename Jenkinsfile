@@ -44,10 +44,10 @@ pipeline {
                     withCredentials([string(credentialsId: 'simple-books-authorization', variable: 'AUTHORIZATION_TOKEN')]) {
                         if (isUnix()) {
                             echo 'Running Bruno API tests...'
-                            sh """npx bru run --env "Books Environment" --env-var Authorization=Bearer "$AUTHORIZATION_TOKEN""" 
+                            sh 'npx bru run --env "Books Environment" --env-var Authorization=$AUTHORIZATION_TOKEN'
                         } else {
                             echo 'Running Bruno API tests...'
-                            bat 'npx bru run --env "Books Environment" --env-var Authorization=Bearer %AUTHORIZATION_TOKEN%'
+                            bat 'npx bru run --env "Books Environment" --env-var Authorization=%AUTHORIZATION_TOKEN%'
                         }
                     }
                 }
