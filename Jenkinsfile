@@ -44,20 +44,34 @@ pipeline {
                     withCredentials([string(credentialsId: 'simple-books-authorization', variable: 'AUTHORIZATION_TOKEN')]) {
                         if (isUnix()) {
                             echo 'Running Bruno API tests...'
-                            sh 'npx bru run --env "Books Environment" --env-var Authorization=$AUTHORIZATION_TOKEN --reporter-html results.html'
+                            sh 'npx bru run --env "Books Environment" --env-var Authorization=$AUTHORIZATION_TOKEN --reporter-html results.html --reporter-json results.json'
                         } else {
                             echo 'Running Bruno API tests...'
-                            bat 'npx bru run --env "Books Environment" --env-var Authorization=%AUTHORIZATION_TOKEN% --reporter-html results.html'
+                            bat 'npx bru run --env "Books Environment" --env-var Authorization=%AUTHORIZATION_TOKEN% --reporter-html results.html --reporter-json results.json'
                         }
                     }
                 }
             }
         }
+
         stage('Archive Test Results') {
             steps {
                 echo 'Archiving test report...'
                 // Save the generated HTML report as a build artifact
                 archiveArtifacts artifacts: 'results.html', fingerprint: true
+            }
+        }
+
+        stage('Publish Bruno HTML Report') {
+            steps {
+                publishHTML(target: [
+                    reportName           : 'Bruno HTML Report',
+                    reportDir            : '.',           // directory containing results.html
+                    reportFiles          : 'results.html',
+                    keepAll              : true,
+                    alwaysLinkToLastBuild: true,
+                    allowMissing         : true
+                ])
             }
         }
     }
