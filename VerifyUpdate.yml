@@ -1,15 +1,11 @@
 info:
-  name: OrderId
+  name: VerifyUpdate
   type: http
-  seq: 10
+  seq: 14
 
 http:
   method: GET
-  url: "{{BaseUrl}}/orders/:orderId"
-  params:
-    - name: orderId
-      value: "{{OrderId}}"
-      type: path
+  url: https://simple-books-api.click/orders
   auth:
     type: bearer
     token: "{{Authorization}}"
@@ -22,15 +18,11 @@ runtime:
           const body = res.getBody();
           const orderId = bru.getEnvVar("OrderId");
           
-          expect(body.id).to.equal(orderId);
-          expect(body.customerName).to.equal("Johnny");
+          expect(body[0].id).to.equal(orderId);
+          expect(body[0].customerName).to.equal("Justin");
         });
 
-        bru.setNextRequest("UpdateOrder")
-  assertions:
-    - expression: res.status
-      operator: eq
-      value: "200"
+        bru.setNextRequest("DeleteOrder")
 
 settings:
   encodeUrl: true

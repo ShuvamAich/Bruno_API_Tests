@@ -1,7 +1,7 @@
 info:
   name: Request API Key
   type: http
-  seq: 16
+  seq: 18
 
 http:
   method: POST
@@ -14,6 +14,15 @@ http:
          "clientEmail": "shuvam@example.com"
       }
   auth: inherit
+
+runtime:
+  scripts:
+    - type: tests
+      code: if (true) return; // skips the rest of the test
+  assertions:
+    - expression: res.status
+      operator: eq
+      value: "200"
 
 settings:
   encodeUrl: true

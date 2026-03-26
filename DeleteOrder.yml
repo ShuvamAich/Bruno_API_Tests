@@ -1,16 +1,27 @@
 info:
   name: DeleteOrder
   type: http
-  seq: 14
+  seq: 15
 
 http:
   method: DELETE
   url: "{{BaseUrl}}/orders/:orderId"
   params:
     - name: orderId
-      value: ""
+      value: "{{OrderId}}"
       type: path
-  auth: inherit
+  auth:
+    type: bearer
+    token: "{{Authorization}}"
+
+runtime:
+  scripts:
+    - type: tests
+      code: bru.setNextRequest(null)
+  assertions:
+    - expression: res.status
+      operator: eq
+      value: "204"
 
 settings:
   encodeUrl: true

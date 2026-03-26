@@ -8,6 +8,26 @@ http:
   url: "{{BaseUrl}}/books"
   auth: inherit
 
+runtime:
+  scripts:
+    - type: tests
+      code: |-
+        test("should return success", function () {
+          expect(res.getStatus()).to.equal(200);
+        });
+
+        test("should not return server error", function () {
+          expect(res.getStatus()).to.not.equal(500);
+        });
+
+        bru.setNextRequest("BookId")
+  assertions:
+    - expression: res.status
+      operator: eq
+      value: "200"
+    - expression: res.body
+      operator: isNotEmpty
+
 settings:
   encodeUrl: true
   timeout: 0

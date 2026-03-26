@@ -20,12 +20,18 @@ runtime:
           expect(res.getStatus()).to.not.equal(500);
         });
 
-        test("should return user data", function () {
+        test("should return status as OK", function () {
           const body = res.getBody();
           
           expect(body).to.have.property("status");
-          expect(body.status).to.equal("O");
+          expect(body.status).to.equal("OK");
         });
+
+        bru.setNextRequest("Books")
+  assertions:
+    - expression: res.status
+      operator: eq
+      value: "200"
 
 settings:
   encodeUrl: true

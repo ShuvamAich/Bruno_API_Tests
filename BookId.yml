@@ -13,6 +13,9 @@ http:
   auth: inherit
 
 runtime:
+  scripts:
+    - type: tests
+      code: bru.setNextRequest("SubmitOrder")
   assertions:
     - expression: res.status
       operator: eq

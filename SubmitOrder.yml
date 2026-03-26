@@ -10,14 +10,21 @@ http:
     type: json
     data: |-
       {
-        "bookId": 1,
-        "customerName": "John"
+        "bookId": 3,
+        "customerName": "Johnny"
       }
   auth:
     type: bearer
     token: "{{Authorization}}"
 
 runtime:
+  scripts:
+    - type: after-response
+      code: |-
+        const data = res.getBody();  
+        bru.setEnvVar("OrderId", data.orderId, { persist: false });
+    - type: tests
+      code: bru.setNextRequest("Order")
   assertions:
     - expression: res.status
       operator: eq

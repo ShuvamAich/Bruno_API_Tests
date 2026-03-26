@@ -8,9 +8,26 @@ http:
   url: "{{BaseUrl}}/orders/:orderId"
   params:
     - name: orderId
-      value: ""
+      value: "{{OrderId}}"
       type: path
-  auth: inherit
+  body:
+    type: json
+    data: |-
+      {
+        "customerName": "Justin"
+      }
+  auth:
+    type: bearer
+    token: "{{Authorization}}"
+
+runtime:
+  scripts:
+    - type: tests
+      code: bru.setNextRequest("VerifyUpdate")
+  assertions:
+    - expression: res.status
+      operator: eq
+      value: "204"
 
 settings:
   encodeUrl: true
